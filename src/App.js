@@ -1,39 +1,36 @@
-import React, { Component } from "react";
-import { AddUsers } from "./components/AddUsers";
-import { Users } from "./components/Users";
-import { Home } from "./components/Home";
-import { Movies } from "./components/Movies";
-import { Root } from "./components/Root";
-import { Router, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import Footer from './Footer';
+import Welcome from './Welcome';
+import Challenge from './Challenge';
 import createHistory from "history/createBrowserHistory";
-import { Welcome } from "./components/Welcome";
+import { BrowserRouter, Router, Route, Switch } from "react-router-dom";
+import ShareUrl from './ShareUrl';
+import User from './User';
+import Accept from './Accept';
 export const history = createHistory();
 
-class App extends Component {
-  render() {
+function App() {
+
     return (
-      <Router history={history}>
-        <div>
+      <BrowserRouter>
+        <div className="App">
           <Switch>
             <Route exact path={"/"} component={Welcome} />
-            <Route component={DefaultRoute} />
+            <Route path={"/challenge"} component={Challenge} />
+            <Route path="/profile/:username" component={ShareUrl} />
+                        <Route path="/accept" component={Accept} />
+
+            <Route path="/:uniquecode" component={User} />
+            <Route path="/accept" component={Accept} />
           </Switch>
         </div>
-      </Router>
+        <div className="Footer">
+         <Footer />
+        </div>
+      </BrowserRouter>
     );
   }
-}
-
-function DefaultRoute() {
-  return (
-    <div>
-      <Root />
-      <Route path={"/home"} component={Home} />
-      <Route path={"/movies"} component={Movies} />
-      <Route path={"/users"} component={Users} />
-      <Route path={"/addUsers"} component={AddUsers} />
-    </div>
-  );
-}
 
 export default App;
